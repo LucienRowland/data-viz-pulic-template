@@ -11,8 +11,9 @@ export type PieDataRow = {
 };
 
 export interface CrashData {
+  AgeDriver: string;
+  AgeOther: string;
   "Crash Number": string;
-  "City Town Name": string;
   "Crash Date": string;
   "Crash Severity": string;
   "Crash Status": string;

@@ -17,10 +17,14 @@ import {
   LabelList,
 } from "recharts";
 
+import CrashChart from "./TownGraph";
+
+
+
 const App = () => {
   const [csvData, setCsvData] = useState<CrashData[]>([]);
   const [pieData, setPieData] = useState<PieDataRow[]>([]);
-  const csvFileUrl = "/data/busReport.csv"; // FIX ME
+  const csvFileUrl = "/data/busReport.csv";
 
   const getData = async () => {
     let response = await fetch(csvFileUrl);
@@ -45,7 +49,7 @@ const App = () => {
       newPieCounts[row["City Town Name"]]++; // Add one!
     });
     for (let key in newPieCounts) {
-      newPieData.push({ name: key, value: newPieCounts[key] });
+      newPieData.push({ name: key, crashes: newPieCounts[key] });
     }
     setPieData(newPieData);
     console.log("Set new pie data!", newPieData);
@@ -64,14 +68,17 @@ const App = () => {
           ))}
         </Pie>
       </PieChart>
+      <CrashChart crashPlace={pieData}/>
+         
       {csvData.map((row, idx) => (
         <div key={idx}>
-          {row.Name} age {row.Age}'s favorite color is {row["Favorite Color"]}{" "}
-          and they play {row["Favorite Sport"]}
+          {row.AgeDriver} driver age (youngest) {row.AgeOther}'s is {row["Age of Driver - Youngest Known"]}{" "}
+          and other driver is {row["Age of Vulnerable User - Youngest Known"]}
         </div>
       ))}
     </main>
   );
 };
+
 
 export default App;
