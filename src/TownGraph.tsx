@@ -6,7 +6,7 @@ import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 export default function ({crashPlace}){
   return(
     <BarChart
-    width={500}
+    width={2000}
     height={300}
     data={crashPlace}
     margin={{
