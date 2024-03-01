@@ -33,7 +33,7 @@ const App = () => {
     let parsed = await papa.parse<CrashData>(text, { header: true });
     console.log("Successfully parsed data:", parsed); // Log to make it easy to inspect shape of our data in the inspector
     setCsvData(parsed.data.filter((row) => row["City Town Name"])); // Only keep rows that have a name, so we avoid blank row at end of file
-    setFilteredData(parsed.data.filter((row)=>row["City Town Name"][0] === 'T')) // starts with W
+    setFilteredData(parsed.data); //filter((row)=>row["City Town Name"][0] === 'T')) // starts with W
   };
 
   useEffect(() => {
@@ -56,6 +56,7 @@ const App = () => {
     setPieData(newPieData);
     console.log("Set new pie data!", newPieData);
   }, [filteredData]);
+
 
   const barnstableCounty = [
     "BARNSTABLE", "BOURNE", "BREWSTER", "CHATHAM", "DENNIS", "EASTHAM",
@@ -168,13 +169,79 @@ const App = () => {
     // You can implement your custom filtering logic here based on the selected option
     // For example, if you want to filter by a specific county, you can call a corresponding filtering function
     // setMiddlesexCounty(), setSomersetCounty(), etc.
+    if (selectedOption === 'Barnstable County') {
+      setFilteredData(csvData.filter(
+        (row)=>barnstableCounty.includes(row['City Town Name'])
+      ))
+    }
+    if (selectedOption === 'Berkshire County') {
+      setFilteredData(csvData.filter(
+        (row)=>berkshireCounty.includes(row['City Town Name'])
+      ))
+    }
+    if (selectedOption === 'Bristol County') {
+      setFilteredData(csvData.filter(
+        (row)=>bristolCounty.includes(row['City Town Name'])
+      ))
+    }
+    if (selectedOption === 'Dukes County') {
+      setFilteredData(csvData.filter(
+        (row)=>dukesCounty.includes(row['City Town Name'] )
+      ))
+    }
+    if (selectedOption === 'Essex County') {
+      setFilteredData(csvData.filter(
+        (row)=>essexCounty.includes(row['City Town Name'])
+      ))
+    }
+    if (selectedOption === 'Franklin County') {
+      setFilteredData(csvData.filter(
+        (row)=>franklinCounty.includes(row['City Town Name'])
+      ))
+    }
+    if (selectedOption === 'Hampden County') {
+      setFilteredData(csvData.filter(
+        (row)=>hampdenCounty.includes(row['City Town Name'])
+      ))
+    }
+    if (selectedOption === 'Hampshire County') {
+      setFilteredData(csvData.filter(
+        (row)=>hampshireCounty.includes(row['City Town Name'])
+      ))
+    }
     if (selectedOption === 'Middlesex County') {
       setFilteredData(csvData.filter(
-        (row)=>row['City Town Name'][0]==='M'
+        (row)=>middlesexCounty.includes(row['City Town Name'])
+      ))
+    }
+    if (selectedOption === 'Nantucket County') {
+      setFilteredData(csvData.filter(
+        (row)=>nantucketCounty.includes(row['City Town Name'])  
+     ))
+    }
+    if (selectedOption === 'Norfolk County') {
+      setFilteredData(csvData.filter(
+        (row)=>norfolkCounty.includes(row['City Town Name'])
+      ))
+    }
+    if (selectedOption === 'Plymouth County') {
+      setFilteredData(csvData.filter(
+        (row)=>plymouthCounty.includes(row['City Town Name'])
+      ))
+    }
+    if (selectedOption === 'Suffolk County') {
+      setFilteredData(csvData.filter(
+        (row)=>suffolkCounty.includes(row['City Town Name'])
+      ))
+    }
+    if (selectedOption === 'Worcester County') {
+      setFilteredData(csvData.filter(
+        (row)=>worcesterCounty.includes(row['City Town Name'])
       ))
     }
     console.log("Selected Option:", selectedOption);
   };
+
 
   return (
     <main style={{ maxWidth: 800, margin: "auto" }}>
@@ -183,20 +250,20 @@ const App = () => {
         {/* Dropdown menu */}
         <select onChange={handleDropdownChange}>
         <option value="">Select an option</option>
-        <option value="Middlesex County">Barnstable County</option>
-        <option value="Somerset County">Berkshire County</option>
-        <option value="Somerset County">Bristol County</option>
-        <option value="Somerset County">Dukes County</option>
-        <option value="Somerset County">Essex County</option>
-        <option value="Somerset County">Franklin County</option>
-        <option value="Somerset County">Hampden County</option>
-        <option value="Somerset County">Hampshire County</option>
-        <option value="Somerset County">Middlesex County</option>
-        <option value="Somerset County">Nantucket County</option>
-        <option value="Somerset County">Norfolk County</option>
-        <option value="Somerset County">Plymouth County</option>
-        <option value="Somerset County">Suffolk County</option>
-        <option value="Somerset County">Worcester County</option>
+        <option value="Barnstable County">Barnstable County</option>
+        <option value="Berkshire County">Berkshire County</option>
+        <option value="Bristol County">Bristol County</option>
+        <option value="Dukes County">Dukes County</option>
+        <option value="Essex County">Essex County</option>
+        <option value="Franklin County">Franklin County</option>
+        <option value="Hampden County">Hampden County</option>
+        <option value="Hampshire County">Hampshire County</option>
+        <option value="Middlesex County">Middlesex County</option>
+        <option value="Nantucket County">Nantucket County</option>
+        <option value="Norfolk County">Norfolk County</option>
+        <option value="Plymouth County">Plymouth County</option>
+        <option value="Suffolk County">Suffolk County</option>
+        <option value="Worcester County">Worcester County</option>
         {/* Add more options as needed */}
       </select>
       <p>Loaded {csvData.length} rows of CSV Data!</p>
@@ -216,7 +283,7 @@ const App = () => {
          
       {csvData.map((row, idx) => (
         <div key={idx}>
-          {row.AgeDriver} driver age (youngest) {row.AgeOther}'s is {row["Age of Driver - Youngest Known"]}{" "}
+          {row.AgeDriver} driver age (youngest) {row.AgeOther}'s is {row["City Town Name"]}{" "}
           and other driver is {row["Age of Vulnerable User - Youngest Known"]}
         </div>
       ))}
