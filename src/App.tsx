@@ -281,12 +281,12 @@ const App = () => {
 
       <CrashChart crashPlace={pieData}/>
          
-      {csvData.map((row, idx) => (
+      {/*csvData.map((row, idx) => (
         <div key={idx}>
           {row.AgeDriver} driver age (youngest) {row.AgeOther}'s is {row["City Town Name"]}{" "}
           and other driver is {row["Age of Vulnerable User - Youngest Known"]}
         </div>
-      ))}
+      ))*/}
     </main>
   );
 };
