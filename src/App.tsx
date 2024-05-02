@@ -246,7 +246,7 @@ const App = () => {
   return (
     <main style={{ maxWidth: 800, margin: "auto" }}>
 
-      <h1>Hello Data Visualization</h1>
+      <h1>Bus Crash Data Visualization</h1>
         {/* Dropdown menu */}
         <select onChange={handleDropdownChange}>
         <option value="">Select an option</option>
@@ -267,7 +267,7 @@ const App = () => {
         {/* Add more options as needed */}
       </select>
       <p>Loaded {csvData.length} rows of CSV Data!</p>
-      <h2>Favorite Colors:</h2>
+      <h2>Bus Crashes In Each City:</h2>
       <PieChart width={300} height={300}>
         <Pie data={pieData} dataKey="value" nameKey="name" label fill="yellow">
           <LabelList dataKey="name" position="middle" />
